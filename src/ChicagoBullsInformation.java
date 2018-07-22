@@ -1,5 +1,5 @@
 public class ChicagoBullsInformation {
-
+    public int id;
     public String position;
     public int number;
     public String country;
@@ -9,7 +9,8 @@ public class ChicagoBullsInformation {
     public String university;
     public double PPG;
 
-    public ChicagoBullsInformation(String p, int n, String c, String na,String h, String w, String u, double ppg){
+    public ChicagoBullsInformation(int i,String p, int n, String c, String na,String h, String w, String u, double ppg){
+        this.id=i;
         this.position=p;
         this.number=n;
         this.country=c;
@@ -20,7 +21,7 @@ public class ChicagoBullsInformation {
         this.PPG=ppg;
 
     }
-    public int id;
+
 
     public int getId() {
         return id;
