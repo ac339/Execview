@@ -1,5 +1,7 @@
+import javax.print.DocFlavor;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     BufferedReader csvFile = null;
@@ -37,13 +39,51 @@ public class Main {
     }
     public static void main(String[] args) {
         ParseCSV();
-
+        List<String> positions=new ArrayList<String>();
+        double averagepointofteam =0;
+        double sumpointofteam=0;
         for(int i=0;i<CBI.size();i++){
-            System.out.println(CBI.get(i).getName());
+          sumpointofteam+=CBI.get(i).getPPG();
+          positions.add(CBI.get(i).getPosition());
         }
+        averagepointofteam=sumpointofteam/CBI.size();
+        Collections.sort(CBI, new Comparator<ChicagoBullsInformation>() {
+            @Override
+            public int compare(ChicagoBullsInformation o1, ChicagoBullsInformation o2) {
+                return Double.compare(o1.PPG,o2.PPG);
+            }
+        });
+        String goldPlayer=CBI.get(0).getName();
+        String silverPlayer=CBI.get(1).getName();
+        String bronzePlayer=CBI.get(2).getName();
+      Set<String> uniquePositions=new HashSet<String>(positions);
+      System.out.print(uniquePositions.size());
+      int counter=0;
+      double sumheights=0;
+      int occurence=0;
+      for (int i=0; i<uniquePositions.size();i++){
+          for(int a=0; a<CBI.size();a++){
+              if(uniquePositions.iterator().next().equalsIgnoreCase(CBI.get(i).position)){
+                  counter++;
+                  String str = (CBI.get(i).height);
+                  char[] crs = str.toCharArray();
+                  for (int c = 0; c < crs.length; c++) {
+                      if (Character.isDigit(crs[c])) {
+                          occurence++;
+                          if(occurence==1){
+                              sumheights+=(double)crs[c];
+                          }else if(occurence>1){
+                              sumheights+=(double)crs[c]/10;
+                          }
+                      }
+                      sumheights=sumheights/counter;
+                  }
 
+              }
 
+          }
+          System.out.println("Position:" + uniquePositions.iterator().next() + "Has this number of palyers" +counter + "and the average height is:"+ sumheights);
+      }
 
-}
-}
+}}
 
