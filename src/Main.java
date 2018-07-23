@@ -57,32 +57,41 @@ public class Main {
         String silverPlayer=CBI.get(1).getName();
         String bronzePlayer=CBI.get(2).getName();
       Set<String> uniquePositions=new HashSet<String>(positions);
-      System.out.print(uniquePositions.size());
+      String[] uniquesArray=new String[uniquePositions.size()];
+      int d=0;
+      for(String s:uniquePositions)
+          uniquesArray[d++]=s;
       int counter=0;
       double sumheights=0;
-      int occurence=0;
-      for (int i=0; i<uniquePositions.size();i++){
+
+      for (int i=0; i<uniquesArray.length;i++){
           for(int a=0; a<CBI.size();a++){
-              if(uniquePositions.iterator().next().equalsIgnoreCase(CBI.get(i).position)){
+              if(uniquesArray[i].equalsIgnoreCase(CBI.get(a).position)){
                   counter++;
-                  String str = (CBI.get(i).height);
+                  String str = (CBI.get(a).height);
                   char[] crs = str.toCharArray();
                   for (int c = 0; c < crs.length; c++) {
+                      int occurence=1;
                       if (Character.isDigit(crs[c])) {
-                          occurence++;
+
+
                           if(occurence==1){
                               sumheights+=(double)crs[c];
                           }else if(occurence>1){
                               sumheights+=(double)crs[c]/10;
                           }
+                          occurence++;
                       }
-                      sumheights=sumheights/counter;
-                  }
 
+                  }
+                  sumheights=sumheights/counter;
               }
 
+
           }
-          System.out.println("Position:" + uniquePositions.iterator().next() + "Has this number of palyers" +counter + "and the average height is:"+ sumheights);
+          System.out.println("Position:" + uniquesArray[i].toString()+ " Has this number of players " +counter + " and the average height is:"+ sumheights);
+          sumheights=0;
+          counter=0;
       }
 
 }}
